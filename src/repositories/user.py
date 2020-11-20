@@ -9,7 +9,7 @@ class UserRepository:
     @staticmethod
     def get(oid):
         """ Query a user by last and first name """
-        return User.query.filter_by(oid=oid).one()
+        return User.query.filter_by(oid=oid).one_or_none()
 
     @staticmethod
     def update(oid, email, profile_pic, name):

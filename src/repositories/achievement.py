@@ -9,7 +9,7 @@ class AchievementRepository:
     @staticmethod
     def get(id_):
         """ Query a user by last and first name """
-        return Achievement.query.filter_by(id=id_).one()
+        return Achievement.query.filter_by(id=id_).one_or_none()
 
     @staticmethod
     def all():
