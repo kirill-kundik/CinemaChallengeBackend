@@ -1,11 +1,8 @@
-# Flask Api Starter Kit [![CircleCI](https://circleci.com/gh/antkahn/flask-api-starter-kit/tree/master.svg?style=svg)](https://circleci.com/gh/antkahn/flask-api-starter-kit/tree/master) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/antkahn/flask-api-starter-kit/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/antkahn/flask-api-starter-kit/?branch=master)
+# Cinema Challenge Backend
 
-This starter kit is designed to allow you to create very fast your Flask API.
+This repository contains backend side of the Cinema Challenge Hackathon project.  
 
-The primary goal of this project is to remain as **unopinionated** as possible. Its purpose is not to dictate your project structure or to demonstrate a complete sample application, but to provide a set of tools intended to make back-end development robust, easy, and, most importantly, fun.
-
-This starter kit comes with a [tutorial](https://github.com/antkahn/flask-api-starter-kit/blob/tutorial/doc/installation.md).
-Check it out if you want a quick tutorial on how to use Flask with this architecure.
+Made by *Loom* with ❤️
 
 ## Table of Contents
 
