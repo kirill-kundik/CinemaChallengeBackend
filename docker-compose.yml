@@ -21,6 +21,10 @@ services:
       - /var/lib/postgresql/data
   db:
     image: postgres:9.6
+    environment:
+      POSTGRES_PASSWORD: $APPLICATION_POSTGRES_PW
+      POSTGRES_USER: $APPLICATION_POSTGRES_USER
+      POSTGRES_DB: $APPLICATION_POSTGRES_DB
     volumes_from:
       - dbdata
     restart: on-failure
