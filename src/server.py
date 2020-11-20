@@ -1,13 +1,11 @@
 import os
 
-from flasgger import Swagger
-from flask import Flask, url_for
+from flask import Flask
 from flask.blueprints import Blueprint
-from flask_login import LoginManager
 
 import config
 import routes
-from models import db, User
+from models import db
 
 # config your API specs
 # you can define multiple specs in the case your api has multiple versions
@@ -33,7 +31,7 @@ server.config["SWAGGER"] = {
     "static_url_path": "/apidocs",
 }
 
-Swagger(server)
+# Swagger(server)
 
 server.debug = config.DEBUG
 server.config["SQLALCHEMY_DATABASE_URI"] = config.DB_URI
