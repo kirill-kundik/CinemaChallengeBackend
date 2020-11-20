@@ -1,6 +1,6 @@
 """ Defines the User repository """
 
-from models import User
+from models import User, Obtained
 
 
 class UserRepository:
@@ -15,9 +15,9 @@ class UserRepository:
     def update(oid, email, profile_pic, name):
         """ Update a user's age """
         user = UserRepository.get(oid)
-        user.email = email
-        user.profile_pic = profile_pic
-        user.name = name
+        user.email = email or user.email
+        user.profile_pic = profile_pic or user.profile_pic
+        user.name = name or user.name
 
         return user.save()
 
@@ -27,5 +27,11 @@ class UserRepository:
         user = User(
             oid=oid, email=email, profile_pic=profile_pic, name=name
         )
+
+        return user.save()
+
+    @staticmethod
+    def obtain(user, achievement):
+        user.achievements.append(Obtained(achievement=achievement))
 
         return user.save()

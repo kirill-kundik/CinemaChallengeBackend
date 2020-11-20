@@ -32,6 +32,12 @@ def with_auth(method):
                     oid, email, picture, name
                 )
 
+            if 'oid' in kwargs:
+                if kwargs['oid'] != user.oid:
+                    return render_error(
+                        "You don't have right access to this page", 403
+                    )
+
             kwargs.update({'user': user})
             return method(*args, **kwargs)
 

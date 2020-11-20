@@ -46,14 +46,23 @@ class BaseModel:
             },
         )
 
+    @staticmethod
+    def _field_to_json(field):
+        if isinstance(field, list):
+            return [BaseModel._field_to_json(f) for f in field]
+        elif isinstance(field, datetime):
+            return field.strftime("%Y-%m-%d %H:%M")
+        elif isinstance(field, BaseModel):
+            return field.json
+        else:
+            return field
+
     @property
     def json(self):
         """ Define a base way to jsonify models
             Columns inside `to_json_filter` are excluded """
         return {
-            column: value
-            if not isinstance(value, datetime)
-            else value.strftime("%Y-%m-%d")
+            column: BaseModel._field_to_json(value)
             for column, value in self._to_dict().items()
             if column not in self.to_json_filter
         }

@@ -1,1 +1,2 @@
-from .users import UsersResources
+from . import users
+from . import achievements

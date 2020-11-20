@@ -15,6 +15,8 @@ class User(db.Model, BaseModel, metaclass=MetaBaseModel):
     profile_pic = db.Column(db.String, nullable=False)
     name = db.Column(db.String, nullable=False)
 
+    achievements = db.relationship("Obtained", back_populates="user")
+
     def __init__(self, oid, email, profile_pic, name):
         """ Create a new User """
         self.oid = oid
