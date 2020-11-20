@@ -2,6 +2,7 @@ import os
 
 from flask import Flask
 from flask.blueprints import Blueprint
+from flask_cors import CORS
 
 import config
 import routes
@@ -42,6 +43,8 @@ server.config["SECRET_KEY"] = os.urandom(24)
 
 db.init_app(server)
 db.app = server
+
+CORS(server)
 
 for blueprint in vars(routes).values():
     if isinstance(blueprint, Blueprint):
