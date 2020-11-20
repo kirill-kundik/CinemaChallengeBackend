@@ -12,7 +12,6 @@ down_revision = '7624bed54ba3'
 
 from alembic import op
 import sqlalchemy as sa
-import sqlalchemy_utils
 from sqlalchemy.dialects import postgresql
 
 def upgrade():
