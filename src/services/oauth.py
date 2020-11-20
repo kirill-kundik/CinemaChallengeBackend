@@ -4,8 +4,8 @@ from flask import request
 from google.auth.transport import requests
 from google.oauth2 import id_token
 
+import config
 from repositories import UserRepository
-from server import server
 from util import render_error
 
 
@@ -16,7 +16,7 @@ def with_auth(method):
             auth_header = request.headers['Authorization']
             token = auth_header.split(' ')[1]
             id_info = id_token.verify_oauth2_token(
-                token, requests.Request(), server.config['GOOGLE_OAUTH_CLIENT_ID']
+                token, requests.Request(), config.GOOGLE_CLIENT_ID
             )
             oid = id_info["sub"]
             picture = id_info["picture"]
