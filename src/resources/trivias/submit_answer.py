@@ -81,13 +81,25 @@ class SubmitAnswerResources(Resource):
                 user = UserRepository.get(second_player_id)
                 user.trivia_rate = user.trivia_rate + 20
                 user.save()
+
+                trivia.first_player_score = 20
+                trivia.second_player_score = 20
+                trivia.save()
             elif first_player_score > second_player_score:
                 user = UserRepository.get(first_player_id)
                 user.trivia_rate = user.trivia_rate + 45
                 user.save()
+
+                trivia.first_player_score = 45
+                trivia.second_player_score = 0
+                trivia.save()
             else:
                 user = UserRepository.get(second_player_id)
                 user.trivia_rate = user.trivia_rate + 45
                 user.save()
+
+                trivia.first_player_score = 0
+                trivia.second_player_score = 45
+                trivia.save()
 
         return render_resource(answer)
