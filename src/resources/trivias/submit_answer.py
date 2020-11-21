@@ -53,8 +53,14 @@ class SubmitAnswerResources(Resource):
 
             players_score = {trivia.user_id: 0, trivia.second_player_id: 0}
 
+            answers_checked = []
+
             for answer in trivia.submitted_answers:
+                if answer.id in answers_checked:
+                    continue
                 for aanswer in trivia.submitted_answers:
+                    if aanswer.id in answers_checked:
+                        continue
                     if aanswer.id == answer.id:
                         continue
                     if aanswer.question_id != answer.question_id:
@@ -68,6 +74,9 @@ class SubmitAnswerResources(Resource):
                         players_score[aanswer.user_id] += 1
                     elif answer.answer.is_right:
                         players_score[answer.user_id] += 1
+
+                    answers_checked.append(answer.id)
+                    answers_checked.append(aanswer.id)
 
             print(players_score)
 
