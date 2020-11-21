@@ -1,7 +1,6 @@
 """
 Define the REST verbs relative to the users
 """
-from collections import defaultdict
 
 import sqlalchemy
 from flask_restful import Resource
@@ -69,6 +68,8 @@ class SubmitAnswerResources(Resource):
                         players_score[aanswer.user_id] += 1
                     elif answer.answer.is_right:
                         players_score[answer.user_id] += 1
+
+            print(players_score)
 
             first_player_id, first_player_score = players_score.popitem()
             second_player_id, second_player_score = players_score.popitem()
