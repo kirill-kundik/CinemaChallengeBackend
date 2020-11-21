@@ -16,6 +16,8 @@ class User(db.Model, BaseModel, metaclass=MetaBaseModel):
     email = db.Column(db.String, unique=True, nullable=False)
     profile_pic = db.Column(db.String, nullable=False)
     name = db.Column(db.String, nullable=False)
+    trivia_rate = db.Column(db.Integer, nullable=False, default=0)
+    achievements_rate = db.Column(db.Integer, nullable=False, default=0)
 
     achievements = db.relationship("Obtained", back_populates="user")
 

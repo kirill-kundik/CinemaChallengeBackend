@@ -16,6 +16,8 @@ class Trivia(db.Model, BaseModel, metaclass=MetaBaseModel):
     id = db.Column(db.Integer, primary_key=True)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
 
+    completed = db.Column(db.Boolean, nullable=False, default=False)
+
     achievement_id = db.Column(db.Integer, db.ForeignKey('achievement.id'))
 
     user_id = db.Column(db.String, db.ForeignKey('user.oid'), nullable=False)
