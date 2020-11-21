@@ -10,6 +10,8 @@ class User(db.Model, BaseModel, metaclass=MetaBaseModel):
 
     __tablename__ = "user"
 
+    to_json_filter = ('achievements',)
+
     oid = db.Column(db.String, primary_key=True)
     email = db.Column(db.String, unique=True, nullable=False)
     profile_pic = db.Column(db.String, nullable=False)
