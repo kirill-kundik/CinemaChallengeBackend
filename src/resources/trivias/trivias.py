@@ -4,7 +4,7 @@ Define the REST verbs relative to the users
 
 from flask_restful import Resource
 from flask_restful.reqparse import Argument
-from sqlalchemy import and_
+from sqlalchemy import and_, text
 
 from models import Trivia, db, Question
 from repositories import AchievementRepository
@@ -38,10 +38,10 @@ class TriviasResources(Resource):
                 if not trivia:
                     trivia = Trivia(user_id=user.oid)
                 else:
-                    trivia.second_player_id = user.id
+                    trivia.second_player_id = user.oid
 
                     for question in Question.query.from_statement(
-                            "select * from question order by random() limit 7"
+                            text("select * from question order by random() limit 7")
                     ).all():
                         trivia.questions.append(question)
 
