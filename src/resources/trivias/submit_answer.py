@@ -78,10 +78,13 @@ class SubmitAnswerResources(Resource):
                     answers_checked.append(answer.id)
                     answers_checked.append(aanswer.id)
 
-            print(players_score)
-
             first_player_id, first_player_score = players_score.popitem()
             second_player_id, second_player_score = players_score.popitem()
+
+            if trivia.user_id != first_player_id:
+                first_player_id, first_player_score, second_player_id, second_player_score = (
+                    second_player_id, second_player_score, first_player_id, first_player_score
+                )
 
             if first_player_score == second_player_score:
                 user = UserRepository.get(first_player_id)
