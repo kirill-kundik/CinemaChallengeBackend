@@ -7,7 +7,7 @@ from .abc import BaseModel, MetaBaseModel
 class Obtained(db.Model, BaseModel, metaclass=MetaBaseModel):
     __tablename__ = "obtained"
 
-    to_json_filter = ('user', 'achievement')
+    to_json_filter = ('user',)
 
     user_id = db.Column(db.String, db.ForeignKey('user.oid'), primary_key=True)
     achievement_id = db.Column(db.Integer, db.ForeignKey('achievement.id'), primary_key=True)
