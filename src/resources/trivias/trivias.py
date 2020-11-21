@@ -22,10 +22,9 @@ class TriviasResources(Resource):
     @with_auth
     def post(user, achievement_id, **_kwargs):
         """ Return an user key information based on his name """
-        db.session.begin()
         try:
             if achievement_id:
-                trivia = Trivia(user_id=user.id, achievement_id=achievement_id)
+                trivia = Trivia(user_id=user.oid, achievement_id=achievement_id)
                 trivia.questions = AchievementRepository.get(achievement_id).questions
 
             else:
@@ -37,7 +36,7 @@ class TriviasResources(Resource):
                 ).first()
 
                 if not trivia:
-                    trivia = Trivia(user_id=user.id)
+                    trivia = Trivia(user_id=user.oid)
                 else:
                     trivia.second_player_id = user.id
 
@@ -48,8 +47,9 @@ class TriviasResources(Resource):
 
             db.session.add(trivia)
             db.session.commit()
-        except:
+        except Exception as exc:
             db.session.rollback()
+            raise exc
             return render_error('Error occurred')
 
         return render_resource(trivia)

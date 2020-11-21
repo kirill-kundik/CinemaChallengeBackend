@@ -18,6 +18,6 @@ class TriviaResources(Resource):
         """ Return an user key information based on his name """
         trivia = Trivia.query.filter_by(id=trivia_id).one_or_none()
         if trivia:
-            if trivia.user_id != user.id and trivia.second_player_id != user.id:
+            if trivia.user_id != user.oid and trivia.second_player_id != user.oid:
                 return render_error('You are not authorized to access this page', 401)
         return render_resource(trivia)

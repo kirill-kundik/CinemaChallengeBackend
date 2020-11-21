@@ -21,7 +21,7 @@ class SubmitAnswerResources(Resource):
     @with_auth
     def post(answer_id, trivia_id, user, **_kwargs):
         """ Return an user key information based on his name """
-        answer = SubmittedAnswer(answer_id=answer_id, trivia_id=trivia_id, user_id=user.id).save()
+        answer = SubmittedAnswer(answer_id=answer_id, trivia_id=trivia_id, user_id=user.oid).save()
         trivia = Trivia.query.filter_by(id=trivia_id).one()
         achievement = AchievementRepository.get(trivia.achievement_id)
 
