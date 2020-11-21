@@ -48,7 +48,7 @@ class SubmitAnswerResources(Resource):
                         UserRepository.obtain(user, achievement)
                     except sqlalchemy.orm.exc.FlushError:
                         pass
-        elif len(trivia.submitted_answers) == 14:
+        elif len(trivia.submitted_answers) == len(trivia.questions) * 2:
             trivia.completed = True
             trivia.save()
 

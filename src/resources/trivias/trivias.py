@@ -22,13 +22,25 @@ class TriviasResources(Resource):
     @with_auth
     def post(user, achievement_id, **_kwargs):
         """ Return an user key information based on his name """
-        trivia = Trivia.query.filter(
-            and_(Trivia.completed == False,
-                 or_(
-                     Trivia.user_id == user.oid,
-                     Trivia.second_player_id == user.oid
-                 ))
-        ).first()
+        if achievement_id:
+            trivia = Trivia.query.filter(
+                and_(Trivia.completed == False,
+                     and_(
+                         Trivia.user_id == user.oid,
+                         Trivia.achievement_id == achievement_id
+                     ))
+            ).first()
+        else:
+            trivia = Trivia.query.filter(
+                and_(
+                    and_(Trivia.completed == False,
+                         or_(
+                             Trivia.user_id == user.oid,
+                             Trivia.second_player_id == user.oid
+                         )),
+                    Trivia.achievement_id == None
+                )
+            ).first()
 
         if trivia:
             return render_resource(trivia)
