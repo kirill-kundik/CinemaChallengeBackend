@@ -52,7 +52,7 @@ class SubmitAnswerResources(Resource):
             trivia.completed = True
             trivia.save()
 
-            players_score = defaultdict(int)
+            players_score = {trivia.user_id: 0, trivia.second_player_id: 0}
 
             for answer in trivia.submitted_answers:
                 for aanswer in trivia.submitted_answers:

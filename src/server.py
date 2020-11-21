@@ -1,6 +1,9 @@
+import logging
 import os
+import traceback
+from time import strftime
 
-from flask import Flask
+from flask import Flask, request
 from flask.blueprints import Blueprint
 from flask_cors import CORS
 
@@ -49,6 +52,40 @@ CORS(server)
 for blueprint in vars(routes).values():
     if isinstance(blueprint, Blueprint):
         server.register_blueprint(blueprint)
+
+
+@server.after_request
+def after_request(response):
+    """ Logging after every request. """
+    # This avoids the duplication of registry in the log,
+    # since that 500 is already logged via @app.errorhandler.
+    if response.status_code != 500:
+        ts = strftime('[%Y-%b-%d %H:%M]')
+        logging.error('%s %s %s %s %s %s %s',
+                      ts,
+                      request.remote_addr,
+                      request.method,
+                      request.scheme,
+                      request.full_path,
+                      response.status,
+                      response.data.decode('utf-8'))
+    return response
+
+
+@server.errorhandler(Exception)
+def exceptions(e):
+    """ Logging after every Exception. """
+    ts = strftime('[%Y-%b-%d %H:%M]')
+    tb = traceback.format_exc()
+    logging.error('%s %s %s %s %s 5xx INTERNAL SERVER ERROR\n%s',
+                  ts,
+                  request.remote_addr,
+                  request.method,
+                  request.scheme,
+                  request.full_path,
+                  tb)
+    return "Internal Server Error", 500
+
 
 if __name__ == "__main__":
     server.run(host=config.HOST, port=config.PORT)
